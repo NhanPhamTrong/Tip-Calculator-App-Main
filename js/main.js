@@ -12,7 +12,7 @@ var customValue = 0;
 var numberOfPeopleValue = 0;
 var tipAmount;
 var tipPercent = 0;
-var tipText;
+var tipText = "";
 var totalAmount;
 
 var numberOnly = [bill, customTip, numberOfPeople];
@@ -37,7 +37,7 @@ function CheckNumberOfPeople() {
 
 function GetTipPercent() {
   if (parseInt(customValue) === 0) {
-    tipPercent = parseFloat(tipText.slice(0, tipText.length - 1)) / 100;
+    tipPercent = tipText == "" ? 0 : parseFloat(tipText.slice(0, tipText.length - 1)) / 100;
   } else {
     selectTip.removeClass("active");
     tipPercent = parseFloat(customValue) / 100;
@@ -64,39 +64,38 @@ function ShowPrices() {
   }
 }
 
+function ShowPricesByEnter(event) {
+  if (event.which == 13) {
+    billValue = isNaN(parseFloat(bill.val())) ? 0 : parseFloat(bill.val());
+    customValue = isNaN(parseFloat(customTip.val())) ? 0 : parseFloat(customTip.val());
+    numberOfPeopleValue = isNaN(parseFloat(numberOfPeople.val())) ? 0 : parseFloat(numberOfPeople.val());
+    GetTipPercent();
+    CheckNumberOfPeople();
+    ShowPrices();
+  }
+}
+
 
 for (var i = 0; i < numberOnly.length; i++) {
   numberOnly[i].keypress(GetNumberOnly);
+  numberOnly[i].keypress(ShowPricesByEnter);
 }
 
 error.hide();
 
-bill.change(function() {
-  billValue = parseFloat(bill.val());
-  CheckNumberOfPeople();
-  ShowPrices();
-});
-
 selectTip.click(function() {
   customValue = 0;
   customTip.val("");
-  selectTip.removeClass("active");
-  $(this).toggleClass("active");
-  tipText = $(this).text();
+  if (!$(this).hasClass("active")) {
+    selectTip.removeClass("active");
+    $(this).addClass("active");
+    tipText = $(this).text();
+  }
+  else {
+    selectTip.removeClass("active");
+    tipText = "";
+  }
   GetTipPercent();
-  CheckNumberOfPeople();
-  ShowPrices();
-});
-
-customTip.change(function() {
-  customValue = parseFloat(customTip.val());
-  GetTipPercent();
-  CheckNumberOfPeople();
-  ShowPrices();
-});
-
-numberOfPeople.change(function() {
-  numberOfPeopleValue = parseFloat(numberOfPeople.val());
   CheckNumberOfPeople();
   ShowPrices();
 });
