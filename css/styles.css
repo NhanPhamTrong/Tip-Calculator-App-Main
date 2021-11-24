@@ -161,3 +161,13 @@ span {
 .attribution a {
   color: var(--attribution-link-color);
 }
+
+@media screen and (max-width: 375px) {
+  section {
+    width: 100%;
+  }
+
+  #right input {
+    margin-top: 30px;
+  }
+}
