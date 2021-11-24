@@ -75,11 +75,26 @@ function ShowPricesByEnter(event) {
   }
 }
 
+function ChangeScreenWidth() {
+  if ($(window).width() <= 375) {
+    console.log("ok");
+    $("section .px-4").removeClass("px-4").addClass("px-0");
+  }
+  else {
+    $("section .px-0").removeClass("px-0").addClass("px-4");
+  }
+}
+
 
 for (var i = 0; i < numberOnly.length; i++) {
   numberOnly[i].keypress(GetNumberOnly);
   numberOnly[i].keypress(ShowPricesByEnter);
 }
+
+ChangeScreenWidth();
+$(window).resize(function() {
+  ChangeScreenWidth();
+});
 
 error.hide();
 
