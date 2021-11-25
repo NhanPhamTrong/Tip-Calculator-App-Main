@@ -91,9 +91,7 @@ for (var i = 0; i < numberOnly.length; i++) {
 }
 
 ChangeScreenWidth();
-$(window).resize(function() {
-  ChangeScreenWidth();
-});
+$(window).resize(ChangeScreenWidth);
 
 error.hide();
 
