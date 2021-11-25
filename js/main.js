@@ -77,7 +77,6 @@ function ShowPricesByEnter(event) {
 
 function ChangeScreenWidth() {
   if ($(window).width() <= 375) {
-    console.log("ok");
     $("section .px-4").removeClass("px-4").addClass("px-0");
   }
   else {
